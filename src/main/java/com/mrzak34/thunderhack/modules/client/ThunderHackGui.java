@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class ThunderHackGui extends Module {
     public ThunderHackGui() {
-        super("HesoyamGui", "новый клик гуи",Category.CLIENT);
+        super("ThunderGui", "новый клик гуи",Category.CLIENT);
         this.setInstance();
     }
 
