@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-@Mod(modid = "thunderhack", name = "ThunderHack", version = "2.40", acceptableRemoteVersions = "*")
+@Mod(modid = "hesoyam", name = "HesoyamProject", version = "V4.0", acceptableRemoteVersions = "*")
 public class Thunderhack {
 
     @Mod.Instance
@@ -201,7 +201,7 @@ public class Thunderhack {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        Display.setTitle("ThunderHack+");
+        Display.setTitle("HesoyamProject");
         initTime = System.currentTimeMillis();
         Thunderhack.load();
         MinecraftForge.EVENT_BUS.register(networkHandler);
